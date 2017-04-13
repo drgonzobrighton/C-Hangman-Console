@@ -8,32 +8,42 @@ namespace Hangman
 {
     class Program
     {
-        static string[] words = { "apple", "pear", "pineapple", "plum", "melon", "peach",
+        static string[] words; 
+            
+        static string[] fruit =   {"apple", "pear", "pineapple", "plum", "melon", "peach",
                                   "banana", "lychee", "blueberry", "strawberry", "raspberry", "blackberry",
                                   "grape", "kiwi", "mango", "orange", "watermelon", "lemon", "lime", "grapefruit"};
+        static string[] animals = { "lion", "giraffe", "fox", "dog", "cat", "tiger", "bear", "elephant", "orangutan", "gorilla",
+                                    "flamingo", "goat", "frog", "duck", "goose", "horse", "hyena"};
+        static string[] food =    {"pizza", "hamburger", "sushi", "rice", "goulash", "soup", "noodles", "steak", "fries",
+                                    "curry", "gyoza", "cake", "muffin", "cookie", "cheese", "salami", "sausage", "salami"};
         static Random rnd = new Random();
-        static string wordToGuess = returnWord();
-        static string placeholder = drawLetterPlaceholders();
+        static string wordToGuess = "";
+        static string placeholder = "";
         static List<char> charactersTried = new List<char>();
         static int nrOfTriesLeft = 5;
         static char userInput;
+        static char category;
 
         static void Main(string[] args)
         {
-            Console.WriteLine("\nWelcome to HANGMAN, you will have to guess a fruit! Let's start..");
+            Console.WriteLine("\nWelcome to HANGMAN, please select from the below categories: ");
+            Console.WriteLine("(F)ruit, (A)nimals or f(O)od");
+
+            chooseCategory();
 
             while (nrOfTriesLeft > 0)
             {
                 Console.WriteLine("************************");  
                 Console.WriteLine(placeholder);
-                Console.WriteLine("Type a letter:");
+                Console.WriteLine("\nType a letter:");
                 while (!Char.TryParse(Console.ReadLine(), out userInput))
                 {
                     Console.WriteLine("Type only 1 letter!!");
                 }
 
                 checkInput(userInput);
-                checkForWinner(placeholder);
+                checkForWinner(placeholder); 
 
             }
 
@@ -43,7 +53,7 @@ namespace Hangman
 
         static string returnWord ()
         {
-            int index = rnd.Next(0, words.Length + 1);
+            int index = rnd.Next(0, words.Length);
             return words[index];
         }
 
@@ -59,8 +69,7 @@ namespace Hangman
 
         static void checkInput (char input)
         {
-          
-           
+ 
             StringBuilder builder = new StringBuilder(placeholder);
            
             builder.Replace(" ", "");
@@ -78,7 +87,11 @@ namespace Hangman
 
             if (!match)
             {
-                charactersTried.Add(input);
+                if (!charactersTried.Contains(input))
+                {
+                    charactersTried.Add(input);
+                }
+               
                 nrOfTriesLeft--;
                 Console.WriteLine("\t\t\t\tNo match, you have {0} more tries..\n", nrOfTriesLeft);
                 Console.WriteLine("\t\t\t\tThese are the letters you have already tried \n\t\t\t\tand was no match: ");
@@ -179,6 +192,36 @@ namespace Hangman
             }
         }
 
+        static void chooseCategory()
+        {
+            while (!Char.TryParse(Console.ReadLine().ToLower(), out category) && (category != 'f' || category != 'a' || category != 'o'))
+            {
+                Console.WriteLine("(F)ruit, (A)nimals or f(O)od");
+            }
 
+            if (category == 'f')
+            {
+                Console.WriteLine("\nYou have chosen fruit");
+                words = fruit;
+            }
+            else if (category == 'a')
+            {
+                Console.WriteLine("\nYou have chosen animals");
+                words = animals;
+            }
+            else if (category == 'o')
+            {
+                Console.WriteLine("\nYou have chosen food");
+                words = food;
+            }
+            else
+            {
+                Console.WriteLine("(F)ruit, (A)nimals or f(O)od");
+                chooseCategory();
+            }
+
+            wordToGuess = returnWord();
+            placeholder = drawLetterPlaceholders();
+        }
     }
 }
