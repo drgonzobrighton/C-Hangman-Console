@@ -8,8 +8,8 @@ namespace Hangman
 {
     class Program
     {
-        static string[] words; 
-            
+        static string[] words;
+
         static string[] fruit =   {"apple", "pear", "pineapple", "plum", "melon", "peach",
                                   "banana", "lychee", "blueberry", "strawberry", "raspberry", "blackberry",
                                   "grape", "kiwi", "mango", "orange", "watermelon", "lemon", "lime", "grapefruit"};
@@ -34,24 +34,24 @@ namespace Hangman
 
             while (nrOfTriesLeft > 0)
             {
-                Console.WriteLine("************************");  
+                Console.WriteLine("************************");
                 Console.WriteLine(placeholder);
                 Console.WriteLine("\nType a letter:");
-                while (!Char.TryParse(Console.ReadLine(), out userInput))
+                while (!Char.TryParse(Console.ReadLine().ToLower(), out userInput))
                 {
                     Console.WriteLine("Type only 1 letter!!");
                 }
 
                 checkInput(userInput);
-                checkForWinner(placeholder); 
+                checkForWinner(placeholder);
 
             }
-
+            
             Console.WriteLine("\n\nGAME OVER");
             Console.ReadLine();
         }
 
-        static string returnWord ()
+        static string returnWord()
         {
             int index = rnd.Next(0, words.Length);
             return words[index];
@@ -67,20 +67,20 @@ namespace Hangman
             return ph;
         }
 
-        static void checkInput (char input)
+        static void checkInput(char input)
         {
- 
+
             StringBuilder builder = new StringBuilder(placeholder);
-           
+
             builder.Replace(" ", "");
-           
+
             bool match = false;
 
             for (int i = 0; i < wordToGuess.Length; i++)
             {
                 if (input == wordToGuess[i])
                 {
-                    builder[i] = input;                  
+                    builder[i] = input;
                     match = true;
                 }
             }
@@ -91,7 +91,7 @@ namespace Hangman
                 {
                     charactersTried.Add(input);
                 }
-               
+
                 nrOfTriesLeft--;
                 Console.WriteLine("\t\t\t\tNo match, you have {0} more tries..\n", nrOfTriesLeft);
                 Console.WriteLine("\t\t\t\tThese are the letters you have already tried \n\t\t\t\tand was no match: ");
@@ -116,7 +116,7 @@ namespace Hangman
 
             placeholder = x;
 
-            
+
         }
 
         static void checkForWinner(string placeholder)
@@ -127,10 +127,10 @@ namespace Hangman
                 Console.WriteLine("\nYOU HAVE WON!");
                 nrOfTriesLeft = -1;
             }
-      
+
         }
 
-        static void drawHangman ()
+        static void drawHangman()
         {
             if (nrOfTriesLeft == 4)
             {
