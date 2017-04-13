@@ -1,0 +1,6 @@
+C:\Users\student\Desktop\Mihaly\C#\Day 2\Hangman\Hangman\bin\Debug\Hangman.exe.config
+C:\Users\student\Desktop\Mihaly\C#\Day 2\Hangman\Hangman\bin\Debug\Hangman.exe
+C:\Users\student\Desktop\Mihaly\C#\Day 2\Hangman\Hangman\bin\Debug\Hangman.pdb
+C:\Users\student\Desktop\Mihaly\C#\Day 2\Hangman\Hangman\obj\Debug\Hangman.csprojResolveAssemblyReference.cache
+C:\Users\student\Desktop\Mihaly\C#\Day 2\Hangman\Hangman\obj\Debug\Hangman.exe
+C:\Users\student\Desktop\Mihaly\C#\Day 2\Hangman\Hangman\obj\Debug\Hangman.pdb
